@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<title>Menu — Albion Place Hotel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #1a1612;
+    color: #f5e9c8;
+    font-family: "Space Mono", monospace;
+    min-height: 100%;
+  }
+  .viewer-bar {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: rgba(15, 12, 9, 0.92);
+    border-bottom: 1px solid rgba(201, 174, 102, 0.25);
+    backdrop-filter: blur(6px);
+    z-index: 10;
+  }
+  .viewer-title {
+    font-family: "Barlow Condensed", sans-serif;
+    letter-spacing: 0.02em;
+    color: #c9ae66;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .viewer-close {
+    color: #f5e9c8;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid #c9ae66;
+    padding: 7px 14px;
+    border-radius: 999px;
+  }
+  .viewer-close:hover { background: #c9ae66; color: #1a1612; }
+  .menu-wrap { width: 100%; padding: 12px; text-align: center; }
+  .menu-image {
+    width: 100%;
+    max-width: 1600px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  }
+  .pinch-hint {
+    margin: 14px auto 0;
+    font-size: 12px;
+    opacity: 0.65;
+    letter-spacing: 0.08em;
+  }
+  .pdf-fallback { margin: 18px auto 28px; font-size: 13px; text-align: center; }
+  .pdf-fallback a { color: #c9ae66; border-bottom: 1px solid currentColor; text-decoration: none; }
+  @media (min-width: 900px) { .menu-wrap { padding: 24px; } }
+</style>
+</head>
+<body>
+
+<div class="viewer-bar">
+  <span class="viewer-title" id="viewer-title">Menu</span>
+  <a href="index.html" class="viewer-close" id="viewer-close">Close ×</a>
+</div>
+
+<div class="menu-wrap">
+  <img class="menu-image" id="menu-image" src="assets/food-menu.jpg" alt="Menu" />
+  <p class="pinch-hint">Pinch to zoom for detail</p>
+  <p class="pdf-fallback">
+    Prefer the PDF? <a id="pdf-link" href="assets/albion-place-hotel-food-menu-jan-26.pdf" target="_blank" rel="noopener">Open original PDF</a>
+  </p>
+</div>
+
+<script>
+  // Select which menu to display based on the ?menu= query parameter.
+  var MENUS = {
+    food:      { title: 'Food Menu',        img: 'assets/food-menu.jpg',        pdf: 'assets/albion-place-hotel-food-menu-jan-26.pdf' },
+    lunch:     { title: 'Lunch Specials',   img: 'assets/lunch-specials.jpg',   pdf: 'assets/lunch-specials.pdf' },
+    cocktails: { title: 'Classic Cocktails',img: 'assets/classic-cocktails.jpg',pdf: 'assets/classic-cocktails.pdf' }
+  };
+  var params = new URLSearchParams(location.search);
+  var which = params.get('menu') || 'food';
+  var m = MENUS[which] || MENUS.food;
+  document.getElementById('viewer-title').textContent = m.title;
+  document.getElementById('menu-image').src = m.img;
+  document.getElementById('menu-image').alt = m.title;
+  document.getElementById('pdf-link').href = m.pdf;
+  document.title = m.title + ' — Albion Place Hotel';
+
+  // Close should return to the section the user came from (eat / drink),
+  // not the top of the page. Navigating to index.html#<section> lands there.
+  var from = params.get('from') || 'eat';
+  document.getElementById('viewer-close').setAttribute('href', 'index.html#' + from);
+</script>
+
+</body>
+</html>
