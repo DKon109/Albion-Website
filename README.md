@@ -1,5 +1,7 @@
 # Albion Place Hotel — Mobile-First Redesign Proposal
 
+[![CI](https://github.com/DKon109/Albion-Website/actions/workflows/ci.yml/badge.svg)](https://github.com/DKon109/Albion-Website/actions/workflows/ci.yml)
+
 > **Status:** Independent redesign prototype — **not the official website**.
 > The proposal is currently being reviewed with the venue and the external agency
 > that maintains the production site.
