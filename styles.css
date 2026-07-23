@@ -459,6 +459,11 @@ img { max-width: 100%; display: block; }
   .section--functions .split-image,
   .section--functions .split-text { order: 0; }
 
+  /* WHAT'S ON: put the auto-scrolling banner carousel BELOW the text on mobile
+     (DOM has the carousel first, which would otherwise sit above the title). */
+  .section--whatson .whatson-text { order: 0; }
+  .section--whatson .whatson-carousel { order: 1; }
+
   .carousel-slide { flex: 0 0 calc((100% - 20px) / 2); }
 
   .footer-inner { grid-template-columns: 1fr; gap: 30px; text-align: center; }
@@ -492,7 +497,9 @@ img { max-width: 100%; display: block; }
   .aph-btn { width: 100%; max-width: 320px; min-width: 0; }
 
   .form-row { grid-template-columns: 1fr; }
-  .carousel-slide { flex: 0 0 100%; }
+  /* Show 2 banners at a time on mobile (was 1) */
+  .carousel-slide { flex: 0 0 calc((100% - 14px) / 2); }
+  .carousel-track { gap: 14px; }
   .carousel-arrow--prev { left: 4px; }
   .carousel-arrow--next { right: 4px; }
 

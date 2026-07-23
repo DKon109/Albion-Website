@@ -116,8 +116,7 @@
 
     function visibleCount() {
       var w = window.innerWidth;
-      if (w <= 820) return 1;
-      if (w <= 960) return 2;
+      if (w <= 960) return 2; // 2 banners on mobile & tablet
       return 3;
     }
     function slideStep() {
@@ -138,8 +137,12 @@
 
     if (nextBtn) nextBtn.addEventListener('click', function () { next(); start(); });
     if (prevBtn) prevBtn.addEventListener('click', function () { prev(); start(); });
-    root.addEventListener('mouseenter', stop);
-    root.addEventListener('mouseleave', start);
+    // Pause-on-hover only on devices that actually hover (desktop). Touch
+    // devices (phones/tablets) never hover, so they keep auto-scrolling.
+    if (window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+      root.addEventListener('mouseenter', stop);
+      root.addEventListener('mouseleave', start);
+    }
     window.addEventListener('resize', function () { goTo(current); });
 
     goTo(0);
